@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bimo3kygysmrm"]
+
+[ext_resource type="PackedScene" uid="uid://ddu8uiugoyos3" path="res://terrain/terrain.tscn" id="1_ddnxj"]
+[ext_resource type="PackedScene" uid="uid://bdrgnmrn1ycqq" path="res://main_char/main_character.tscn" id="1_xvj36"]
+[ext_resource type="Script" uid="uid://ck7vir05ep4ff" path="res://ingame/ingame.gd" id="3_jfy4a"]
+[ext_resource type="PackedScene" uid="uid://m34b2jstndbf" path="res://menu/menu.tscn" id="4_v424x"]
+
+[node name="ingame" type="Node2D" unique_id=932169904]
+script = ExtResource("3_jfy4a")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1281247708]
+color = Color(0.9999996, 0.99565536, 0.8523261, 1)
+texture_offset = Vector2(100, 0)
+texture_scale = Vector2(10000, 10000)
+polygon = PackedVector2Array(-356, -314, -318, 242, 505, 246, 453, -341)
+
+[node name="Terrain" parent="." unique_id=1676764710 instance=ExtResource("1_ddnxj")]
+
+[node name="MainCharacter" parent="." unique_id=1389669817 instance=ExtResource("1_xvj36")]
+light_mask = 513
+position = Vector2(4, -3)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1174024861]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=772842702]
+
+[node name="Control" parent="CanvasLayer" unique_id=1534824914 instance=ExtResource("4_v424x")]
