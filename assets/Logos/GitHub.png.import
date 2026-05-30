@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpas7st6q2yn0"
-path="res://.godot/imported/loop_logo.png-abcae515aba1c34f00e7c2cf8abbb24a.ctex"
+uid="uid://o5bakubjtch3"
+path="res://.godot/imported/GitHub.png-7856e8a683199dcca9f783c0360114d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/loop_logo.png"
-dest_files=["res://.godot/imported/loop_logo.png-abcae515aba1c34f00e7c2cf8abbb24a.ctex"]
+source_file="res://assets/Logos/GitHub.png"
+dest_files=["res://.godot/imported/GitHub.png-7856e8a683199dcca9f783c0360114d9.ctex"]
 
 [params]
 

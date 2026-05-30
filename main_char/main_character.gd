@@ -6,7 +6,6 @@ const JUMP_VELOCITY = -200.0
 const GRAVITY = 980.0
 const ROOM_WIDTH = 192
 
-
 # 狀態控制
 enum State { READY, WALK, IDLE, JUMP, DAMAGED, DIE }
 var current_state: State = State.IDLE # 初始狀態改為 IDLE，配合 ready 的等待
@@ -38,8 +37,19 @@ func _ready() -> void:
 	velocity = Vector2.ZERO # 初始速度歸零，等待開始
 	current_state = State.READY
 	current_room_index = 0
+	
+	# 💡 訂閱父節點的 game_started 信號
+	var parent = get_parent()
+	if parent and parent.has_signal("game_started"):
+		parent.game_started.connect(_on_game_started)
+	
 	print("遊戲等待中，請按下任意鍵開始...")
 
+# 3. 接收到信號後觸發的邏輯
+func _on_game_started() -> void:
+	if current_state == State.READY:
+		print("received sinal: game start")
+		current_state = State.WALK
 
 func _process(delta: float) -> void:
 	#debug([State.keys()[current_state], current_room_index, is_on_floor(),sprite.global_position])
@@ -58,9 +68,10 @@ func _process(delta: float) -> void:
 	# 狀態 1：等待遊戲開始
 	if current_state == State.READY:
 		#if Input.is_action_just_pressed("jump"): 
-		if Input.is_anything_pressed():
-			print("Game start!")
-			current_state = State.WALK
+		# 東西改成用信號的方式寫
+		#if Input.is_anything_pressed():
+			#print("Game start!")
+			#current_state = State.WALK
 		return # 尚未開始前，不執行後續輸入
 		
 	# 狀態 2：死亡狀態，不接收任何輸入
@@ -74,7 +85,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += GRAVITY * delta
 	
 	# 處理跳躍（只有在 WALK 或 JUMP 狀態且在地面時可以跳）
-	if Input.is_action_just_pressed("jump") and is_on_floor() and current_state != State.DAMAGED:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and ( current_state == State.IDLE or current_state == State.WALK):
 		velocity.y = JUMP_VELOCITY
 		current_state = State.JUMP
 	

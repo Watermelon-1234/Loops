@@ -1,6 +1,30 @@
 [gd_scene format=3 uid="uid://m34b2jstndbf"]
 
-[ext_resource type="FontFile" uid="uid://mqmx2vu6ovbx" path="res://assets/PressStart2P-vaV7.ttf" id="1_j0t7f"]
+[ext_resource type="FontFile" uid="uid://mqmx2vu6ovbx" path="res://assets/Fonts/PressStart2P-vaV7.ttf" id="1_j0t7f"]
+[ext_resource type="Texture2D" uid="uid://o5bakubjtch3" path="res://assets/Logos/GitHub.png" id="2_g18jx"]
+
+[sub_resource type="GDScript" id="GDScript_g18jx"]
+script/source = "@tool
+extends RichTextEffect
+class_name RichTextGhost
+
+# Syntax: [ghost freq=5.0 span=10.0][/ghost]
+
+# Define the tag name.
+var bbcode = \"ghost\"
+
+func _process_custom_fx(char_fx):
+	# Get parameters, or use the provided default value if missing.
+	var speed = char_fx.env.get(\"freq\", 5.0)
+	var span = char_fx.env.get(\"span\", 10.0)
+
+	var alpha = sin(char_fx.elapsed_time * speed + (char_fx.range.x / span)) * 0.5 + 0.5
+	char_fx.color.a = alpha
+	return true
+"
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_6nwqt"]
+script = SubResource("GDScript_g18jx")
 
 [node name="Control" type="Control" unique_id=1534824914]
 layout_mode = 3
@@ -32,18 +56,20 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer" unique_id=18803711]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1956647478]
-custom_minimum_size = Vector2(90, 0)
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=899599089]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("1_j0t7f")
-theme_override_font_sizes/font_size = 20
-text = "L∞ps"
-placeholder_text = "L∞ps"
+theme_override_colors/default_color = Color(0.33928686, 0.30285245, 0.16627875, 1)
+theme_override_fonts/normal_font = ExtResource("1_j0t7f")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[wave]L∞ps"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_6nwqt")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=933690786]
 custom_minimum_size = Vector2(0, 30)
@@ -55,18 +81,28 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 8
+icon = ExtResource("2_g18jx")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Start" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=768385508]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_j0t7f")
+text = "Start"
 
 [node name="Tutorial" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=88192278]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_j0t7f")
+text = "?"
 
 [node name="Option" type="Button" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1576770354]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_j0t7f")
+theme_override_font_sizes/font_size = 8
+text = "options"
