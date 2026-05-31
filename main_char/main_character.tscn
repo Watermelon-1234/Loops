@@ -200,7 +200,7 @@ animations = [{
 "duration": 0.5,
 "texture": SubResource("AtlasTexture_dnmyc")
 }],
-"loop": true,
+"loop": false,
 "name": &"main_char_die",
 "speed": 5.0
 }, {
@@ -293,8 +293,7 @@ script = ExtResource("1_sfo4e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=640769041]
 sprite_frames = SubResource("SpriteFrames_a2luu")
-animation = &"main_char_jump_up"
-frame_progress = 0.34693423
+animation = &"main_char_die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=608410453]
 position = Vector2(-0.5, -0.5)
